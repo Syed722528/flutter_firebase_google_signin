@@ -1,26 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_firebase_google_signin/widgets/custom_button.dart';
-import 'package:flutter_firebase_google_signin/widgets/custom_input_field.dart';
 
+import '../widgets/custom_button.dart';
 import '../widgets/custom_button_withicon.dart';
+import '../widgets/custom_input_field.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class RegisterPage extends StatefulWidget {
+  const RegisterPage({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<RegisterPage> createState() => _RegisterPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController _email = TextEditingController();
   final TextEditingController _password = TextEditingController();
-  bool rememberMe = false; // For Checkbox
+  final TextEditingController _confirmPassword = TextEditingController();
 
   @override
   void dispose() {
     _email.dispose();
     _password.dispose();
-
+    _confirmPassword.dispose();
     super.dispose();
   }
 
@@ -40,7 +40,7 @@ class _LoginPageState extends State<LoginPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Welcome back',
+                    "Let's create an Account for you",
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 35),
                   ),
                   Text(
@@ -60,41 +60,30 @@ class _LoginPageState extends State<LoginPage> {
                     icon: Icons.visibility,
                     isPassword: true,
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(children: [
-                        Checkbox(
-                            value: rememberMe,
-                            onChanged: (bool? value) {
-                              setState(() {
-                                rememberMe = value!;
-                              });
-                            }),
-                        Text('Remeber me')
-                      ]),
-                      GestureDetector(
-                          onTap: () {}, child: Text('Forgot Password')),
-                    ],
+                  Text('Confirm Password'),
+                  CustomInputField(
+                    controller: _confirmPassword,
+                    icon: Icons.visibility,
+                    isPassword: true,
                   ),
                   CustomButton(
                     onTap: () {},
-                    text: 'Sign in',
+                    text: 'Create Account',
                   ),
                   CustomButtonWithicon(
                     onTap: () {},
-                    text: 'Sign in with Google',
+                    text: 'Continue with Google',
                     iconSource:
                         'http://pngimg.com/uploads/google/google_PNG19635.png',
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text("Don't have an account? "),
+                      Text("Aleardy have an account? "),
                       GestureDetector(
                           onTap: () {},
                           child: Text(
-                            'Sign up',
+                            'Sign in',
                             style: TextStyle(
                                 color: Colors.purple,
                                 fontWeight: FontWeight.bold,

@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_firebase_google_signin/pages/login_page.dart';
 
-void main(){
+import 'pages/login_page.dart';
+
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized;
+  // Initializing firebase
+
   runApp(const MyApp());
 }
 
