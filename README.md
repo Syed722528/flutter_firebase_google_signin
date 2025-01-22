@@ -84,4 +84,4 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 Syed Hassan - [LinkedIn](https://www.linkedin.com/in/syed-hassan-abrar-11713a1b0/)
 
-Contact: [Send Email](mailto:shibrar28@gmail.com?subject=Firebase%20Auth%20App%20Query&body=Hello,%20I%20have%20a%20question%20about%20your%20Firebase%20Auth%20app...)
+Contact: [Send me an Email](mailto:shibrar28@gmail.com?subject=Firebase%20Auth%20App%20Query&body=Hello,%20I%20have%20a%20question%20about%20your%20Firebase%20Auth%20app...)
