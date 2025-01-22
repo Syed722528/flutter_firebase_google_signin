@@ -1,14 +1,14 @@
 class UserModel {
   final String uid;
   final String email;
-  final String displayName;
-  final String photoUrl;
+  String? displayName; // Not required while creating account
+  String? photoUrl; // Same
 
   UserModel(
       {required this.email,
-      required this.photoUrl,
+       this.photoUrl,
       required this.uid,
-      required this.displayName});
+       this.displayName});
 
   factory UserModel.fromMap(Map<String, dynamic> map) {
     return UserModel(
@@ -18,12 +18,12 @@ class UserModel {
         displayName: map['displayName']);
   }
 
-  Map<String,dynamic> toMap(){
+  Map<String, dynamic> toMap() {
     return {
-      'uid':uid,
-      'email':email,
-      'displayName':displayName,
-      'photoUrl':photoUrl,
+      'uid': uid,
+      'email': email,
+      'displayName': displayName,
+      'photoUrl': photoUrl,
     };
   }
 }

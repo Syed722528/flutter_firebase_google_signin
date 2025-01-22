@@ -17,9 +17,9 @@ class CustomButtonWithicon extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.network(
-                iconSource,
-                fit: BoxFit.cover),
+            Image(
+              image: AssetImage(iconSource)  ,
+                fit: BoxFit.contain),
             Text(
               text,
               style: TextStyle(color: Colors.black, fontSize: 17),

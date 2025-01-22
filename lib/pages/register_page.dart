@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_firebase_google_signin/models/user_model.dart';
+import 'package:flutter_firebase_google_signin/services/firebase_auth.dart';
+import 'package:flutter_firebase_google_signin/utils/show_alert.dart';
+import 'package:flutter_firebase_google_signin/utils/validators.dart';
 
 import '../widgets/custom_button.dart';
 import '../widgets/custom_button_withicon.dart';
@@ -15,6 +19,8 @@ class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController _email = TextEditingController();
   final TextEditingController _password = TextEditingController();
   final TextEditingController _confirmPassword = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+  final _authService = AuthService();
 
   @override
   void dispose() {
@@ -24,6 +30,16 @@ class _RegisterPageState extends State<RegisterPage> {
     super.dispose();
   }
 
+  void signUp()async{
+    try {
+      UserModel user = await _authService.createUserwithEmail(_email.text.trim(), _password.text.trim());
+      print('User registered Successfully ${user.uid}');
+      ShowAlert.showAlertDialog(context: context, title: 'Account created', message: 'You can log in now');
+    } catch (e) {
+      print('Error registering user: $e');
+      ShowAlert.showAlertDialog(context: context, title: 'Error ocuured', message: '${e}');
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,63 +51,97 @@ class _RegisterPageState extends State<RegisterPage> {
             padding: EdgeInsets.all(20),
             child: SingleChildScrollView(
               scrollDirection: Axis.vertical,
-              child: Column(
-                spacing: 30,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Let's create an Account for you",
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 35),
-                  ),
-                  Text(
-                    'Please enter your details',
-                    style: TextStyle(
-                        color: const Color.fromARGB(255, 131, 130, 130)),
-                  ),
-                  Text('Email'),
-                  CustomInputField(
-                    controller: _email,
-                    icon: Icons.mail,
-                    isPassword: false,
-                  ),
-                  Text('Password'),
-                  CustomInputField(
-                    controller: _password,
-                    icon: Icons.visibility,
-                    isPassword: true,
-                  ),
-                  Text('Confirm Password'),
-                  CustomInputField(
-                    controller: _confirmPassword,
-                    icon: Icons.visibility,
-                    isPassword: true,
-                  ),
-                  CustomButton(
-                    onTap: () {},
-                    text: 'Create Account',
-                  ),
-                  CustomButtonWithicon(
-                    onTap: () {},
-                    text: 'Continue with Google',
-                    iconSource:
-                        'http://pngimg.com/uploads/google/google_PNG19635.png',
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text("Aleardy have an account? "),
-                      GestureDetector(
-                          onTap: () {},
-                          child: Text(
-                            'Sign in',
-                            style: TextStyle(
-                                color: Colors.purple,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 15),
-                          )),
-                    ],
-                  )
-                ],
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  spacing: 30,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Let's create an Account for you",
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 35),
+                    ),
+                    Text(
+                      'Please enter your details',
+                      style: TextStyle(
+                          color: const Color.fromARGB(255, 131, 130, 130)),
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      spacing: 5,
+                      children: [
+                        Text('Email'),
+                        CustomInputField(
+                          controller: _email,
+                          icon: Icons.mail,
+                          isPassword: false,
+                          validator: Validators.validateEmail,
+                        ),
+                      ],
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      spacing: 5,
+                      children: [
+                        Text('Password'),
+                        CustomInputField(
+                          controller: _password,
+                          validator: Validators.validatePassword,
+                          isPassword: true,
+                        ),
+                      ],
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      spacing: 5,
+                      children: [
+                        Text('Confirm Password'),
+                        CustomInputField(
+                          controller: _confirmPassword,
+                          isPassword: true,
+                          validator: Validators.validatePassword,
+                        ),
+                      ],
+                    ),
+                    CustomButton(
+                      onTap: () {
+                        if (_formKey.currentState!.validate()) {
+                          if (_confirmPassword.text.trim()==_password.text.trim()) {
+                            signUp();
+                          }
+                          else{
+                            ShowAlert.showAlertDialog(context: context, title: 'An error occurred', message: "Password's don't match");
+                          }
+                        }
+                      },
+                      text: 'Create Account',
+                    ),
+                    CustomButtonWithicon(
+                      onTap: () {},
+                      text: 'Continue with Google',
+                      iconSource:
+                          'assets/google_logo.png',
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text("Aleardy have an account? "),
+                        GestureDetector(
+                            onTap: () {
+                              Navigator.pop(context);
+                            },
+                            child: Text(
+                              'Sign in',
+                              style: TextStyle(
+                                  color: Colors.purple,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 15),
+                            )),
+                      ],
+                    )
+                  ],
+                ),
               ),
             ),
           ),

@@ -4,34 +4,54 @@ import 'package:flutter_firebase_google_signin/models/user_model.dart';
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-
   //-------------------------Method to create user with Email----------------------------//
 
-  Future<UserModel> createUser(String email, String password)async{
-    try{
-      UserCredential result = await _auth.createUserWithEmailAndPassword(email: email, password: password);
+  Future<UserModel> createUserwithEmail(String email, String password) async {
+    try {
+      UserCredential result = await _auth.createUserWithEmailAndPassword(
+          email: email, password: password);
       User user = result.user!;
 
       return UserModel.fromMap({
-        'uid':user.uid,
-        'email':user.email,
-        'userName':user.displayName,
-        'imageUrl':user.photoURL, // User can add image later on
-      }) ;
-    }catch(e){
+        'uid': user.uid,
+        'email': user.email,
+        'userName': user.displayName, // User can add later on
+        'imageUrl': user.photoURL, // User can add image later on
+      });
+    } on FirebaseAuthException catch (e) {
       print(e.toString());
-      return Future.error(e);
+      return Future.error(e.message!);
     }
   }
 
   //---------------------------------Method to get current user-----------------------------//
-  UserModel getCurrentUser(){
+  UserModel getCurrentUser() {
     User user = _auth.currentUser!;
     return UserModel.fromMap({
-      'uid':user.uid,
-      'email':user.email,
-      'displayName':user.displayName,
-      'photoUrl':user.photoURL,
+      'uid': user.uid,
+      'email': user.email,
+      'displayName': user.displayName,
+      'photoUrl': user.photoURL,
     });
+  }
+
+  //---------------------------------Method to Sign in user with email and password----------------//
+
+  Future<UserModel> signInUserWithEmail(String email, String password) async {
+    try {
+      UserCredential result = await _auth.signInWithEmailAndPassword(
+          email: email, password: password);
+      User user = result.user!;
+
+      return UserModel.fromMap({
+        'uid': user.uid,
+        'email': user.email,
+        'photoUrl': user.photoURL,
+        'displayName': user.displayName,
+      });
+    } on FirebaseAuthException catch (e) {
+      print(e.toString());
+      return Future.error(e.message!);
+    }
   }
 }
