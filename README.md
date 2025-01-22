@@ -84,4 +84,4 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 Syed Hassan - [LinkedIn](https://www.linkedin.com/in/syed-hassan-abrar-11713a1b0/)
 
-Contact: [Send me an Email](shibrar28@gmail.com)
+Contact: [Send me an Email](mailtto:shibrar28@gmail.com)
