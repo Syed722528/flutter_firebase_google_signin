@@ -66,6 +66,12 @@ Make sure to add your own Firebase configuration files:
 
 **Note:** These files are not included in the repository for security reasons. You'll need to add them from your own Firebase project.
 
+## Screenshots
+
+<img src="samples/signIn.png" alt="Login Page" width="190" height ="330">
+<img src="samples/register.png" alt="Login Page" width="190" height ="330">
+
+
 ## Contributing
 
 Contributions are welcome! Here's how you can help:
