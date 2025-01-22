@@ -68,8 +68,8 @@ Make sure to add your own Firebase configuration files:
 
 ## Screenshots
 
-<img src="samples/signIn.png" alt="Login Page" width="190" height ="330">
-<img src="samples/register.png" alt="Login Page" width="190" height ="330">
+<img src="samples/signIn.png" alt="Login Page" width="180" height ="330">
+<img src="samples/register.png" alt="Login Page" width="180" height ="330">
 
 
 ## Contributing
