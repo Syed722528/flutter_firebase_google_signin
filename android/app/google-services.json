@@ -12,7 +12,20 @@
           "package_name": "com.example.check"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "978534933529-52mtpinevac68kgslp3gtdfb0gr1o4aa.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.check",
+            "certificate_hash": "5134f4003569155c69b8cb09c1041564f80ecf3a"
+          }
+        },
+        {
+          "client_id": "978534933529-0u6n4rq8lg4id5if8h40432j8q9egofl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyAhu00dHXNd7KvE-eMGGnwzGiAPVbF0jcU"
@@ -20,7 +33,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "978534933529-0u6n4rq8lg4id5if8h40432j8q9egofl.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "978534933529-vqmquslj9vaa7o28sv8pgsrvv8udan7i.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.check"
+              }
+            }
+          ]
         }
       }
     },
@@ -31,7 +56,12 @@
           "package_name": "com.example.flutter_firebase_google_signin"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "978534933529-0u6n4rq8lg4id5if8h40432j8q9egofl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyAhu00dHXNd7KvE-eMGGnwzGiAPVbF0jcU"
@@ -39,7 +69,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "978534933529-0u6n4rq8lg4id5if8h40432j8q9egofl.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "978534933529-vqmquslj9vaa7o28sv8pgsrvv8udan7i.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.check"
+              }
+            }
+          ]
         }
       }
     }

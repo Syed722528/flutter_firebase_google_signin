@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
 class CustomInputField extends StatefulWidget {
-  IconData? icon = Icons.visibility;
+  final IconData? icon ;
   final bool isPassword;
   final TextEditingController? controller;
   final String? Function(String?)? validator;
 
-  CustomInputField(
+ const CustomInputField(
       {super.key,
       this.icon,
       required this.isPassword,
@@ -38,7 +38,7 @@ class _CustomInputFieldState extends State<CustomInputField> {
                   icon: showPassword
                       ? Icon(Icons.visibility)
                       : Icon(Icons.visibility_off))
-              : Icon(widget.icon),
+              : Icon(widget.icon??Icons.visibility),
           focusedBorder: OutlineInputBorder(
               borderSide: BorderSide(color: Colors.deepPurple)),
           enabledBorder:

@@ -1,8 +1,8 @@
 class UserModel {
   final String uid;
   final String email;
-  String? displayName; // Not required while creating account
-  String? photoUrl; // Same
+  String? displayName;
+  String? photoUrl;
 
   UserModel(
       {required this.email,

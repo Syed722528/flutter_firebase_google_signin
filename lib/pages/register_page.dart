@@ -9,7 +9,8 @@ import '../widgets/custom_button_withicon.dart';
 import '../widgets/custom_input_field.dart';
 
 class RegisterPage extends StatefulWidget {
-  const RegisterPage({super.key});
+  final void Function()? onTap;
+  const RegisterPage({super.key,required this.onTap});
 
   @override
   State<RegisterPage> createState() => _RegisterPageState();
@@ -30,16 +31,24 @@ class _RegisterPageState extends State<RegisterPage> {
     super.dispose();
   }
 
-  void signUp()async{
+  void signUp() async {
     try {
-      UserModel user = await _authService.createUserwithEmail(_email.text.trim(), _password.text.trim());
+      UserModel user = await _authService.createUserwithEmail(
+          _email.text.trim(), _password.text.trim());
       print('User registered Successfully ${user.uid}');
-      ShowAlert.showAlertDialog(context: context, title: 'Account created', message: 'You can log in now');
+      if (!mounted) return;
+      ShowAlert.showAlertDialog(
+          context: context,
+          title: 'Account created',
+          message: 'You can log in now');
     } catch (e) {
       print('Error registering user: $e');
-      ShowAlert.showAlertDialog(context: context, title: 'Error ocuured', message: '${e}');
+      if (!mounted) return;
+      ShowAlert.showAlertDialog(
+          context: context, title: 'Error ocuured', message: '$e');
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -107,32 +116,41 @@ class _RegisterPageState extends State<RegisterPage> {
                     CustomButton(
                       onTap: () {
                         if (_formKey.currentState!.validate()) {
-                          if (_confirmPassword.text.trim()==_password.text.trim()) {
+                          if (_confirmPassword.text.trim() ==
+                              _password.text.trim()) {
                             signUp();
-                          }
-                          else{
-                            ShowAlert.showAlertDialog(context: context, title: 'An error occurred', message: "Password's don't match");
+                          } else {
+                            ShowAlert.showAlertDialog(
+                                context: context,
+                                title: 'An error occurred',
+                                message: "Password's don't match");
                           }
                         }
                       },
                       text: 'Create Account',
                     ),
                     CustomButtonWithicon(
-                      onTap: () {},
+                      onTap: () {
+                        try {
+                          _authService.signInWithGoogle();
+                        } catch (e) {
+                          ShowAlert.showAlertDialog(
+                              context: context,
+                              title: 'Error ocuured',
+                              message: '$e');
+                        }
+                      },
                       text: 'Continue with Google',
-                      iconSource:
-                          'assets/google_logo.png',
+                      iconSource: 'assets/google_logo.png',
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text("Aleardy have an account? "),
                         GestureDetector(
-                            onTap: () {
-                              Navigator.pop(context);
-                            },
+                            onTap: widget.onTap,
                             child: Text(
-                              'Sign in',
+                              'Log in',
                               style: TextStyle(
                                   color: Colors.purple,
                                   fontWeight: FontWeight.bold,

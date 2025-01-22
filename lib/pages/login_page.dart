@@ -9,7 +9,8 @@ import '../utils/show_alert.dart';
 import '../widgets/custom_button_withicon.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+  final void Function()? onTap;
+  const LoginPage({super.key,required this.onTap});
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -21,7 +22,7 @@ class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
   final _authService = AuthService();
 
-  bool rememberMe = false; // For Checkbox
+  bool rememberMe = false; // For Checkbox.
 
   void signIn() async {
     try {
@@ -30,8 +31,9 @@ class _LoginPageState extends State<LoginPage> {
       print('User log in Successfull ${user.uid}');
     } catch (e) {
       print('Error logging in user: $e');
-      ShowAlert.showAlertDialog(
-          context: context, title: 'Error ocuured', message: '${e}');
+      if (!mounted) return;
+      ShowAlert.showAlertDialog( // Displaying error to the user
+          context: context, title: 'Error ocuured', message: '$e');
     }
   }
 
@@ -125,7 +127,16 @@ class _LoginPageState extends State<LoginPage> {
                       text: 'Sign in',
                     ),
                     CustomButtonWithicon(
-                      onTap: () {},
+                      onTap: () {
+                        try {
+                          _authService.signInWithGoogle();
+                        } catch (e) {
+                          ShowAlert.showAlertDialog(
+                              context: context,
+                              title: 'Error ocuured',
+                              message: '$e');
+                        }
+                      },
                       text: 'Sign in with Google',
                       iconSource: 'assets/google_logo.png',
                     ),
@@ -134,9 +145,7 @@ class _LoginPageState extends State<LoginPage> {
                       children: [
                         Text("Don't have an account? "),
                         GestureDetector(
-                            onTap: () {
-                              Navigator.pushNamed(context, '/registerPage');
-                            },
+                            onTap: widget.onTap,
                             child: Text(
                               'Sign up',
                               style: TextStyle(
